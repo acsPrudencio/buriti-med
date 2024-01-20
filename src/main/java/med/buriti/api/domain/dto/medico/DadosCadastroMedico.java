@@ -9,18 +9,19 @@ import med.buriti.api.domain.dto.endereco.DadosEndereco;
 import med.buriti.api.domain.enums.EspecialidadeEnum;
 
 public record DadosCadastroMedico (
-        @NotBlank
+        @NotBlank(message = "{nome.obrigatorio}")
         String nome,
-        @NotBlank
-        @Email
+        @NotBlank(message = "{email.obrigatorio}")
+        @Email(message = "{email.invalido}")
         String email,
-        @NotBlank
+        @NotBlank(message = "{telefone.obrigatorio}")
         String telefone,
-        @NotBlank
-        @Pattern(regexp = "\\d{4,6}")
+        @NotBlank(message = "{crm.obrigatorio}")
+        @Pattern(regexp = "\\d{4,6}", message = "{crm.invalido}")
         String crm,
-        @NotNull
+        @NotNull(message = "{especialidade.obrigatoria}")
         EspecialidadeEnum especialidade,
-        @NotNull @Valid
+        @NotNull(message = "{endereco.obrigatorio}")
+        @Valid
         DadosEndereco endereco
 ) {}

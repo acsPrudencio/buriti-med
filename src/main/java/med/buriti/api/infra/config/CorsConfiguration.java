@@ -1,4 +1,4 @@
-package med.buriti.api.config;
+package med.buriti.api.infra.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

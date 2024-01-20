@@ -8,13 +8,15 @@ import jakarta.validation.constraints.Pattern;
 import med.buriti.api.domain.dto.endereco.DadosEndereco;
 
 public record DadosCadastroPaciente(
-        @NotBlank
+        @NotBlank(message = "{nome.obrigatorio}")
         String nome,
-        @NotBlank
-        @Email String email,
-        @NotBlank String telefone,
-        @NotBlank
-        @Pattern(regexp = "\\d{3}\\.?\\d{3}\\.?\\d{3}\\-?\\d{2}")
+        @NotBlank(message = "{email.obrigatorio}")
+        @Email(message = "{email.invalido}")
+        String email,
+        @NotBlank(message = "{telefone.obrigatorio}")
+        String telefone,
+        @NotBlank(message = "{cpf.obrigatorio}")
+        @Pattern(regexp = "\\d{3}\\.?\\d{3}\\.?\\d{3}\\-?\\d{2}", message = "{cpf.invalido}")
         String cpf,
         @NotNull
         @Valid DadosEndereco endereco
