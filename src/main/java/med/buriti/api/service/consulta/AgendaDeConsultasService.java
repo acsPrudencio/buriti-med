@@ -8,8 +8,11 @@ import med.buriti.api.repository.ConsultaRepository;
 import med.buriti.api.repository.MedicoRepository;
 import med.buriti.api.repository.PacienteRepository;
 import med.buriti.api.validation.ValidacaoException;
+import med.buriti.api.validation.consulta.agendamento.ValidadorAgendamentoDeConsulta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class AgendaDeConsultasService {
@@ -22,6 +25,9 @@ public class AgendaDeConsultasService {
 
     @Autowired
     private PacienteRepository pacienteRepository;
+
+    @Autowired
+    private List<ValidadorAgendamentoDeConsulta> validadores;
 
     public void agendar(DadosAgendamentoConsultaDTO dados) {
 
@@ -42,6 +48,8 @@ public class AgendaDeConsultasService {
                 throw new ValidacaoException("Id do médico informado não existe!");
             return medicoReferenceById;
         }
+        validadores.forEach(v -> v.validar(dados));
+
         if (dados.especialidade() == null) {
             throw new ValidacaoException("Especialidade é obrigatória quando médico não for escolhido!");
         }
