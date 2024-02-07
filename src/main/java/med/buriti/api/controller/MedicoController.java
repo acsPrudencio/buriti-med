@@ -1,5 +1,6 @@
 package med.buriti.api.controller;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import med.buriti.api.domain.dto.medico.DadosAtualizacaoMedico;
 import med.buriti.api.domain.dto.medico.DadosCadastroMedico;
@@ -18,6 +19,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("medicos")
+@SecurityRequirement(name = "bearer-key")
 public class MedicoController {
     @Autowired
     private MedicoRepository medicoRepository;
