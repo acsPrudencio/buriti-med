@@ -9,6 +9,7 @@ import med.buriti.api.repository.MedicoRepository;
 import med.buriti.api.repository.PacienteRepository;
 import med.buriti.api.validation.ValidacaoException;
 import med.buriti.api.validation.consulta.agendamento.ValidadorAgendamentoDeConsulta;
+import med.buriti.api.validation.consulta.cancelamento.ValidadorCancelamentoDeConsulta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,9 @@ public class AgendaDeConsultasService {
 
     @Autowired
     private List<ValidadorAgendamentoDeConsulta> validadores;
+
+    @Autowired
+    private List<ValidadorCancelamentoDeConsulta> validadoresCancelamento;
 
     public void agendar(DadosAgendamentoConsultaDTO dados) {
 
@@ -61,6 +65,7 @@ public class AgendaDeConsultasService {
         if (!consultaRepository.existsById(dados.idConsulta())) {
             throw new ValidacaoException("Id da consulta informado não existe!");
         }
+        validadoresCancelamento.forEach(v -> v.validar(dados));
 
         var consulta = consultaRepository.getReferenceById(dados.idConsulta());
         consulta.cancelar(dados.motivo());
