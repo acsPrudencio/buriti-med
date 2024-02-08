@@ -2,6 +2,7 @@ package med.buriti.api.service.consulta;
 
 import med.buriti.api.domain.dto.consulta.DadosAgendamentoConsultaDTO;
 import med.buriti.api.domain.dto.consulta.DadosCancelamentoConsultaDTO;
+import med.buriti.api.domain.dto.consulta.DadosDetalhamentoConsultaDTO;
 import med.buriti.api.domain.model.Consulta;
 import med.buriti.api.domain.model.Medico;
 import med.buriti.api.repository.ConsultaRepository;
@@ -33,7 +34,7 @@ public class AgendaDeConsultasService {
     @Autowired
     private List<ValidadorCancelamentoDeConsulta> validadoresCancelamento;
 
-    public void agendar(DadosAgendamentoConsultaDTO dados) {
+    public DadosDetalhamentoConsultaDTO agendar(DadosAgendamentoConsultaDTO dados) {
 
         if (!pacienteRepository.existsById(dados.idPaciente())) {
             throw new ValidacaoException("Id do paciente informado não existe!");
@@ -42,7 +43,8 @@ public class AgendaDeConsultasService {
         var paciente = pacienteRepository.findById(dados.idPaciente()).get();
         var medico = escolherMedico(dados);
         var consulta = new Consulta(null, medico, paciente, dados.data(), null);
-        consultaRepository.save(consulta);
+        Consulta consultaSalva = consultaRepository.save(consulta);
+        return new DadosDetalhamentoConsultaDTO(consultaSalva);
     }
 
     private Medico escolherMedico(DadosAgendamentoConsultaDTO dados) {

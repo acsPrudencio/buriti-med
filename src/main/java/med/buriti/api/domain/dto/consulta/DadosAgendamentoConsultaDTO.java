@@ -1,6 +1,5 @@
 package med.buriti.api.domain.dto.consulta;
 
-// Trecho de código suprimido
 
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;

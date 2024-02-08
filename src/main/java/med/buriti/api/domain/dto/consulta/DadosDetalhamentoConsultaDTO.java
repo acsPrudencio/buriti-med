@@ -1,4 +1,11 @@
 package med.buriti.api.domain.dto.consulta;
 
-public record DadosDetalhamentoConsultaDTO(Object o, Object o1, Object o2, Object o3) {
+import med.buriti.api.domain.model.Consulta;
+
+import java.time.LocalDateTime;
+
+public record DadosDetalhamentoConsultaDTO(Long id, Long idMedico, Long idPaciente, LocalDateTime data) {
+    public DadosDetalhamentoConsultaDTO(Consulta consulta) {
+        this(consulta.getId(), consulta.getMedico().getId(), consulta.getPaciente().getId(), consulta.getData());
+    }
 }
