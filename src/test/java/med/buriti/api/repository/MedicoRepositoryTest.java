@@ -47,7 +47,7 @@ class MedicoRepositoryTest {
         var medicoLivre = medicoRepository.escolherMedicoAleatorioLivreNaData(EspecialidadeEnum.CARDIOLOGIA, proximaSegundaAs10);
 
         //then ou assert
-        assertThat(medicoLivre).isNull();
+        assertThat(medicoLivre).isEmpty();
     }
 
     @Test
@@ -63,7 +63,7 @@ class MedicoRepositoryTest {
         var medicoLivre = medicoRepository.escolherMedicoAleatorioLivreNaData(EspecialidadeEnum.CARDIOLOGIA, proximaSegundaAs10);
 
         //then ou assert
-        assertThat(medicoLivre).isEqualTo(medico);
+        assertThat(medicoLivre.get()).isEqualTo(medico);
     }
 
     private void cadastrarConsulta(Medico medico, Paciente paciente, LocalDateTime data) {
